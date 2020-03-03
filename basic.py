@@ -33,19 +33,64 @@ for container in containers:
     #print("Shipping: " + shipping)
 
 
-mail = smtplib.SMTP('smtp.gmail.com',587)
 
-mail.ehlo()
+import datetime
+from time import sleep
+from getpass import getpass
 
-mail.starttls()
+def send_mail(username, password, receiver_mail, mail_subject, mail_body, server_incoming='smtp.gmail.com'):
+    try:
+        connection = smtplib.SMTP(server_incoming, 587)
+        connection.ehlo()
+        connection.starttls()
+        connection.ehlo()
 
-mail.login('example@gmail.com','Password')
+        connection.login(username, password)
+        
+        message = "Subject: {0}\n\n{1}".format(mail_subject, mail_body).encode("utf-8")
 
-mail.sendmail('example@gmail.com','example@gmail.com',product_name)
+        connection.sendmail(username, receiver_mail, message)
 
-mail.close()
+        return 1
+    except Exception as e:
+        print(e, "\ncan not send mail")
+        return 0
+    finally:
+        connection.close()
 
 
+
+sender_mail = 'example@gmail.com'
+password = getpass()
+receiver_mail = 'example@gmail.com'
+
+waiting_interval = 10
+
+send_hour = 22
+send_minute = 00 
+
+
+# send_mail(sender_mail, password, receiver_mail, product_name, "")
+
+
+
+is_sent_this_day = False # for sending only once
+while(True):
+
+    now = datetime.datetime.now()
+    time_to_send = now.replace(hour=send_hour, minute=send_minute, second=0, microsecond=0)
+
+    if(now > time_to_send and not is_sent_this_day):
+    
+        is_sent = send_mail(sender_mail, password, receiver_mail, product_name, "")
+        # if mail is sent dont send again this day
+        if(is_sent):
+            is_sent_this_day = True
+
+    elif(time_to_send > now):
+        is_sent_this_day = False
+
+    sleep(waiting_interval)
 
 
 

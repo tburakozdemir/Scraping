@@ -20,3 +20,7 @@ Simple scraping programs to improve myself
   Mails daily by taking the equivalent of YTL in dollars
 
 
+#### ToDo
+  
+  - Extracting new estimated values by training the exchange values saved in the csv file
+  - Mail function (nearly done)

@@ -17,6 +17,6 @@ Simple scraping programs to improve myself
 
 + **Exchange**
 
-  Mails daily by taking the equivalent of TL in dollars
+  Mails daily by taking the equivalent of YTL in dollars
 
 

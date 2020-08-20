@@ -17,16 +17,13 @@ containers = page_soup.find_all("div" ,{"class":"item-container"})
 
 for container in containers:
     brand_container = container.findAll("a", {"class":"item-brand"})
-
     brand_name = brand_container[0].img["title"]
-
     product_container = container.findAll("a", {"class":"item-title"})
-
     product_name = product_container[0].text
     
     
-    #shipping_container = container.findall("li" , {"class":"price-ship"})
-    #shipping = shipping_container[0].text.strip()
+    shipping_container = container.findall("li" , {"class":"price-ship"})
+    shipping = shipping_container[0].text.strip()
 
     #print("Brand: " + brand_name)
     #print("Product Name: " + product_name)
